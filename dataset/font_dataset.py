@@ -46,13 +46,13 @@ class FontDataset(Dataset):
     def __getitem__(self, index):
         target_image_path = self.target_images[index]
         target_image_name = target_image_path.split('/')[-1]  # lấy tên file
-        name_without_ext = target_image_name.rsplit('.', 1)[0]  # bỏ phần .png
+        name_without_ext = target_image_name.rsplit('.', 1)[0]  # bỏ phần .jpg
         
         content = name_without_ext[-1]
         style = name_without_ext[:-2]
         
         # Read content image
-        content_image_path = f"{self.root}/{self.phase}/ContentImage/{content}.png"
+        content_image_path = f"{self.root}/{self.phase}/ContentImage/{content}.jpg"
         content_image = Image.open(content_image_path).convert('RGB')
 
         # Random sample used for style image
@@ -87,7 +87,7 @@ class FontDataset(Dataset):
                 choose_style = random.choice(style_list)
                 choose_index = style_list.index(choose_style)
                 style_list.pop(choose_index)
-                choose_neg_name = f"{self.root}/train/TargetImage/{choose_style}/{choose_style}+{content}.png"
+                choose_neg_name = f"{self.root}/train/TargetImage/{choose_style}/{choose_style}+{content}.jpg"
                 choose_neg_names.append(choose_neg_name)
 
             # Load neg_images
