@@ -45,8 +45,11 @@ class FontDataset(Dataset):
 
     def __getitem__(self, index):
         target_image_path = self.target_images[index]
-        target_image_name = target_image_path.split('/')[-1]
-        style, content = target_image_name.split('.')[0].split('+')
+        target_image_name = target_image_path.split('/')[-1]  # lấy tên file
+        name_without_ext = target_image_name.rsplit('.', 1)[0]  # bỏ phần .png
+        
+        content = name_without_ext[-1]
+        style = name_without_ext[:-2]
         
         # Read content image
         content_image_path = f"{self.root}/{self.phase}/ContentImage/{content}.png"
